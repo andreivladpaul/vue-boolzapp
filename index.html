@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,12 +12,14 @@
     <title>Boolzapp</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="root">
+
         <div class="users-left">
+            <!------- MY DETAILS----- -->
             <div class="actual-user">
                 <div class="user-details">
                     <img src="./img/avatar_io.jpg" alt="">
-                    <p class="font16">Paolo Dossetto</p>
+                    <p class="font16">Vlad Andrei</p>
                 </div>
                 <div class="icons">
                     <i class="fas fa-circle-notch grey icon"></i>
@@ -25,6 +27,7 @@
                     <i class="fas fa-ellipsis-v grey icon"></i>
                 </div>
             </div>
+            <!------- NOTIFICATIONS----- -->
             <div class="notifications">
                 <div class="bell">
                     <i class="fas fa-bell-slash"></i>
@@ -34,6 +37,7 @@
                     <a class="font14" id="notify" href="#">Attiva notifiche desktop</a>
                 </div>
             </div>
+            <!------- SEARCH----- -->
             <div class="search">
                 <div class="search-item">
                     <div>
@@ -48,13 +52,26 @@
                 </div>
             
             </div>
-            <div class="contacts"></div>
+            <!------- HEADING LEFT----- -->
+            <div class=" heading">
+                <div v-for="contact in contacts" class="contact">
+
+                    <div class="user-details">
+                        <img :src="'img/avatar' + contact.avatar + '.jpg'" alt="">
+                        <div class="u-chat" >
+                            <p class="font16">{{contact.name}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="chat-right">
+            <!------- OPEN CHAT----- -->
             <div class="contact-details">
                 <div class="user-details">
                     <img src="./img/avatar_1.jpg" alt="">
-                    <div>
+                    <div class="open-chat">
                         <p class="font16">Michele</p>
                         <p class="font14 grey">Ultimo messaggio alle</p>
                     </div>
@@ -65,7 +82,9 @@
                     <i class="fas fa-ellipsis-v grey icon"></i>
                 </div>
             </div>
+
             <div class="messages"></div>
+            <!------- WRITE NEW MESSAGE----- -->
             <div class="type">
                 <div class="type-icon">
                     <i class="far fa-smile dark-grey"></i>
@@ -78,7 +97,8 @@
         </div>
     </div>
 
-
-    <script src="./main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="module" src="./main.js"></script>
 </body>
 </html>
+

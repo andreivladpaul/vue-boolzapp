@@ -32,11 +32,12 @@ const app = new Vue({
                 name: 'Fabio',
                 avatar: '_2',
                 visible: true,
-                messages: [{
-                    date: '20/03/2020 16:30:00',
-                    message: 'Ciao come stai?',
-                    status: 'sent'
-                },
+                messages: [
+                    {
+                        date: '20/03/2020 16:30:00',
+                        message: 'Ciao come stai?',
+                        status: 'sent'
+                    },
                     {
                         date: '20/03/2020 16:30:55',
                         message: 'Bene grazie! Stasera ci vediamo?',
@@ -53,11 +54,12 @@ const app = new Vue({
                 name: 'Samuele',
                 avatar: '_3',
                 visible: true,
-                messages: [{
-                    date: '28/03/2020 10:10:40',
-                    message: 'La Marianna va in campagna',
-                    status: 'received'
-                },
+                messages: [
+                    {
+                        date: '28/03/2020 10:10:40',
+                        message: 'La Marianna va in campagna',
+                        status: 'received'
+                    },
                     {
                         date: '28/03/2020 10:20:10',
                         message: 'Sicuro di non aver sbagliato chat?',
@@ -69,27 +71,48 @@ const app = new Vue({
                         status: 'received'
                     }
                 ],
-            },
+            }/* ,
             {
                 name: 'Luisa',
                 avatar: '_4',
                 visible: true,
-                messages: [{
-                    date: '10/01/2020 15:30:55',
-                    message: 'Lo sai che ha aperto una nuova pizzeria?',
-                    status: 'sent'
-                },
+                messages: [
+                    {
+                        date: '10/01/2020 15:30:55',
+                        message: 'Lo sai che ha aperto una nuova pizzeria?',
+                        status: 'sent'
+                    },
                     {
                         date: '10/01/2020 15:50:00',
                         message: 'Si, ma preferirei andare al cinema',
                         status: 'received'
                     }
                 ],
-            },
-        ]
+            } */
+        ],
+        currentImg: '',
+        currentChat: '',
+        lastSeen: ''
     },
     methods: {
+        getContactImage(index) {
+            const contact = this.contacts[index];
+            const imagePath = `/img/avatar${contact.avatar}.jpg`;
+            return imagePath
+        },
+        selectContact(index) {
+            this.currentChat = this.contacts[index]
+            this.lastSeen = this.contacts[index].messages[2].date
 
+            const avatar = this.contacts[index].avatar;
+            this.currentImg = `/img/avatar${avatar}.jpg`;
+        }
+    },
+    mounted() {
+        this.currentChat = this.contacts[0];
+        const firstContact = this.currentChat;
+        this.currentImg = `img/avatar${firstContact.avatar}.jpg`
+        this.lastSeen = firstContact.messages[2].date;
     }
-})
+}) 
 

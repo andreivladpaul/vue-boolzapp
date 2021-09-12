@@ -47,33 +47,36 @@
                     </div>
 
                     <div>
-                        <input type="search" placeholder="Cerca o inizia una nuova  chat" >
+                        <input type="search" placeholder="Cerca o inizia una nuova chat" >
                     </div>
                 </div>
             
             </div>
             <!------- HEADING LEFT----- -->
-            <div class=" heading">
-                <div v-for="contact in contacts" class="contact">
-
+            <ul class=" heading">
+                <li v-for="(contact, index) in contacts" class="contact " @click= " selectContact(index)">
+                    <!-- CONTACT DETAILS SECTION WITH PICTURE -->
                     <div class="user-details">
-                        <img :src="'img/avatar' + contact.avatar + '.jpg'" alt="">
-                        <div class="u-chat" >
+                        <img :src="getContactImage(index)" alt="">
+                        <div class="contact-chat" >
                             <p class="font16">{{contact.name}}</p>
+                            <p class="font14 contact-m grey">{{contact.messages[2].message}}</p>
                         </div>
+                        <span class="date font12 grey">{{contact.messages[2].date}}</span>
                     </div>
-                </div>
-            </div>
+
+                </li>
+            </ul>
 
         </div>
         <div class="chat-right">
             <!------- OPEN CHAT----- -->
             <div class="contact-details">
                 <div class="user-details">
-                    <img src="./img/avatar_1.jpg" alt="">
+                    <img :src="currentImg" alt="">
                     <div class="open-chat">
-                        <p class="font16">Michele</p>
-                        <p class="font14 grey">Ultimo messaggio alle</p>
+                        <p class="font16">{{currentChat.name}}</p>
+                        <p class="font14 grey">Ultimo messaggio alle {{lastSeen}}</p>
                     </div>
                 </div>
                 <div class="icons">
@@ -83,7 +86,15 @@
                 </div>
             </div>
 
-            <div class="messages"></div>
+            <div class="messages">
+                <div class="message">
+                        <p v-for="message in currentChat.messages" :class="{ sent : message.status == 'sent',
+                        received : message.status == 'received' }" class="message">{{message.message }}
+                        <span class="messageDate font12 grey">{{ message.date }}</span>
+                    </p>
+                        
+                </div>
+            </div>
             <!------- WRITE NEW MESSAGE----- -->
             <div class="type">
                 <div class="type-icon">

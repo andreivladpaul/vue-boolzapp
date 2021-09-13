@@ -95,6 +95,7 @@ const app = new Vue({
         lastSeen: '',
         lastAccess:'',
         newMessage: '',
+        searchName: ''
     
         
     },
@@ -141,8 +142,7 @@ const app = new Vue({
             setTimeout(this.getAnswer,1000);  
             
             
-        },
-        
+        },        
         scrollToBottom() {
             this.currentChat.messages.scrollTop = this.currentChat.messages.scrollHeight;
           }, 
@@ -165,5 +165,12 @@ const app = new Vue({
         const firstContact = this.currentChat;
         this.currentImg = `img/avatar${firstContact.avatar}.jpg`
         this.lastSeen = this.contacts[0].messages[parseInt(this.contacts[0].messages.length - 1)].date;
+    },
+    computed: {
+        filteredList() {
+            return this.contacts.filter(contact => {
+                return contact.name.toLowerCase().includes(this.searchName)
+            })
+        }
     }
 }) 

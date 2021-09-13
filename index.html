@@ -38,23 +38,23 @@
                 </div>
             </div>
             <!------- SEARCH----- -->
-            <div class="search">
+            <div class="search-area">
                 <div class="search-item">
                     <div>
-                        <button type="submit ">
+                        <button type="submit">
                                 <i class="fas fa-search grey"></i>
                         </button>
                     </div>
 
                     <div>
-                        <input type="search" placeholder="Cerca o inizia una nuova chat" >
+                        <input id="search" v-model="searchName"type="search" placeholder="Cerca o inizia una nuova chat" >
                     </div>
                 </div>
             
             </div>
             <!------- HEADING LEFT----- -->
             <ul class=" heading">
-                <li v-for="(contact, index) in contacts" class="contact " @click="selectContact(index)">
+                <li v-for="(contact, index) in filteredList" class="contact " @click="selectContact(index)">
                     <!-- CONTACT DETAILS SECTION WITH PICTURE -->
                     <div class="user-details">
                         <img :src="getContactImage(index)" alt="">

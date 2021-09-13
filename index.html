@@ -54,15 +54,15 @@
             </div>
             <!------- HEADING LEFT----- -->
             <ul class=" heading">
-                <li v-for="(contact, index) in contacts" class="contact " @click= " selectContact(index)">
+                <li v-for="(contact, index) in contacts" class="contact " @click="selectContact(index)">
                     <!-- CONTACT DETAILS SECTION WITH PICTURE -->
                     <div class="user-details">
                         <img :src="getContactImage(index)" alt="">
                         <div class="contact-chat" >
                             <p class="font16">{{contact.name}}</p>
-                            <p class="font14 contact-m grey">{{contact.messages[2].message}}</p>
+                            <p class="font14 contact-m grey">{{lastMessage(contact, index)}}</p>
                         </div>
-                        <span class="date font12 grey">{{contact.messages[2].date}}</span>
+                        <span class="date font12 grey">{{lastMessageDate(contact,index)}}</span> 
                     </div>
 
                 </li>
@@ -79,6 +79,7 @@
                         <p class="font14 grey">Ultimo messaggio alle {{lastSeen}}</p>
                     </div>
                 </div>
+                <!------- icons----- -->
                 <div class="icons">
                     <i class="fas fa-search grey icon"></i>
                     <i class="fas fa-paperclip grey icon"></i>
@@ -100,7 +101,7 @@
                 <div class="type-icon">
                     <i class="far fa-smile dark-grey"></i>
                 </div>
-                <input type="text" placeholder="Scrivi un messaggio">
+                <input type="text" placeholder="Scrivi un messaggio" v-model="newMessage" @keyUp.enter="addMessage">
                 <div class="type-icon">
                     <i class="fas fa-microphone dark-grey"></i>
                 </div>
@@ -109,6 +110,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
     <script type="module" src="./main.js"></script>
 </body>
 </html>

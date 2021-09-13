@@ -71,7 +71,7 @@ const app = new Vue({
                         status: 'received'
                     }
                 ],
-            }/* ,
+            } ,
             {
                 name: 'Luisa',
                 avatar: '_4',
@@ -88,31 +88,82 @@ const app = new Vue({
                         status: 'received'
                     }
                 ],
-            } */
+            } 
         ],
         currentImg: '',
         currentChat: '',
-        lastSeen: ''
+        lastSeen: '',
+        lastAccess:'',
+        newMessage: '',
+    
+        
     },
     methods: {
+        
+        lastMessage(e, index) {
+            let arrayMessages = this.contacts[index].messages
+            let lastMessage = arrayMessages[parseInt(arrayMessages.length - 1)].message;
+            return lastMessage;
+        },
+        lastMessageDate(e,index) {
+            let arrayMessages = this.contacts[index].messages;
+            let lastMessageDate = arrayMessages[parseInt(arrayMessages.length - 1)].date;
+            return lastMessageDate;
+        },
         getContactImage(index) {
             const contact = this.contacts[index];
             const imagePath = `/img/avatar${contact.avatar}.jpg`;
             return imagePath
         },
         selectContact(index) {
-            this.currentChat = this.contacts[index]
-            this.lastSeen = this.contacts[index].messages[2].date
+            this.currentChat = this.contacts[index];
 
             const avatar = this.contacts[index].avatar;
             this.currentImg = `/img/avatar${avatar}.jpg`;
-        }
+
+            let arrayMessages = this.contacts[index].messages
+            this.lastSeen = arrayMessages[parseInt(arrayMessages.length - 1)].date;
+
+        },
+        getAnswer(){
+            let date = dayjs().date() + '/' + dayjs().month() + '/' + dayjs().year() + ' ' + dayjs().hour() + ':' + dayjs().minute() + ':' + dayjs().second();
+            this.currentChat.messages.push({date: date, message:'ok', status: 'received'});
+        },
+        
+        addMessage() {
+            let date = dayjs().date() + '/' + dayjs().month() + '/' + dayjs().year() + ' ' + dayjs().hour() + ':' + dayjs().minute() + ':' + dayjs().second();
+
+            if(this.newMessage != '') {
+                this.currentChat.messages.push({date: date ,message: this.newMessage, status: 'sent'});
+                this.newMessage = ''
+            }
+
+            setTimeout(this.getAnswer,1000);  
+            
+            
+        },
+        
+        scrollToBottom() {
+            this.currentChat.messages.scrollTop = this.currentChat.messages.scrollHeight;
+          }, 
+        getMessages() {
+            // Prior to getting your messages.
+            shouldScroll = this.currentChat.messages.scrollTop + this.currentChat.messages.clientHeight === this.currentChat.messages.scrollHeight;
+          /*
+           * Get your messages, we'll just simulate it by appending a new one syncronously.
+           */
+            this.addMessage();
+          // After getting your messages.
+            if (!shouldScroll) {
+                scrollToBottom();
+            }
+        },
+        
     },
     mounted() {
         this.currentChat = this.contacts[0];
         const firstContact = this.currentChat;
         this.currentImg = `img/avatar${firstContact.avatar}.jpg`
-        this.lastSeen = firstContact.messages[2].date;
+        this.lastSeen = this.contacts[0].messages[parseInt(this.contacts[0].messages.length - 1)].date;
     }
 }) 
-

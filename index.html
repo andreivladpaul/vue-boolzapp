@@ -70,13 +70,13 @@
 
         </div>
         <div class="chat-right">
-            <!------- OPEN CHAT----- -->
+            <!------- OPEN CHAT RIGHT----- -->
             <div class="contact-details">
                 <div class="user-details">
                     <img :src="currentImg" alt="">
                     <div class="open-chat">
                         <p class="font16">{{currentChat.name}}</p>
-                        <p class="font14 grey">Ultimo messaggio alle {{lastSeen}}</p>
+                        <p class="font14 grey">Ultimo messaggio {{lastSeen}}</p>
                     </div>
                 </div>
                 <!------- icons----- -->
@@ -86,13 +86,23 @@
                     <i class="fas fa-ellipsis-v grey icon"></i>
                 </div>
             </div>
-
+            <!------- messages----- -->
             <div class="messages">
-                <div class="message">
-                        <p v-for="message in currentChat.messages" :class="{ sent : message.status == 'sent',
-                        received : message.status == 'received' }" class="message">{{message.message }}
+                <div class="message-list">
+
+                    <div v-for="(message,index) in currentChat.messages" class="message"
+                    :class="{ sent : message.status == 'sent', received : message.status == 'received'}" @mouseover="hoverMessage()" @mouseleave="showArrow = false" >{{message.message }}
+                    
                         <span class="messageDate font12 grey">{{ message.date }}</span>
-                    </p>
+                        <span class="eraseIcon"> <i class="fas fa-chevron-down font14 grey" v-show="showArrow"></i></span>
+                        
+                        <!-------------- DELETE MESSAGE OPTION -------------->
+                        <!-- <div class="erase-options" >
+                            <p class="font14 option">Info Messaggio</p>
+                            <p class="font14 option" id="erase">Cancella Messaggio</p>
+                        </div> 
+ -->
+                    </div>
                         
                 </div>
             </div>

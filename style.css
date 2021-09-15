@@ -163,7 +163,7 @@ i {
 }
 /* -------CONTACT DETAIL----- */
 .contact-details {
-    width: 100%;
+    width: 1000px;
     height: 70px;
     background-color: #eaeaea;
     display: flex;
@@ -181,28 +181,37 @@ i {
     background-image: url(./img/mine.jpg);
     padding: 10px 20px;
     display: flex;
-    flex-direction: column;
     overflow-y:scroll;
 }
 
-.message {
+.message-list {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 20px 10px;
-    margin: 10px 0;
-    border-radius: 10px;
     position: relative;
-    min-width: 300px;
-    position: relative;
+    
 
 }
-.message .received {
-    align-self: flex-start ;
+.message {
+    padding: 25px 20px 25px 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    min-width: 150px;
+    max-width: 70%;
+    width: max-content;
+    position: relative;
+    display: flex;
+
+
+}
+.message.received {
+    align-self: flex-start;
     background-color: white;
     
 }
 
-.message .sent {
+.message.sent {
     align-self: flex-end;
     background-color: #d5f9ba;
 }
@@ -212,6 +221,26 @@ i {
     right: 5px;
     padding-top: 0px;
 }
+.eraseIcon {
+    position: absolute;
+    top:5px;
+    right: 10px;
+}
+.erase-options {
+    position: absolute;
+    bottom: -70px;
+    right: 0;
+    background-color: #fff;
+    z-index: 99;
+    -webkit-box-shadow: 2px 5px 16px 0px #0B325E, 19px 16px 18px 17px rgba(0,0,0,0); 
+box-shadow: 2px 5px 16px 0px #2c2f33b2, 19px 16px 18px 17px rgba(0,0,0,0);
+}
+.erase-options .option {
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+}
+
 /* -------TYPE----- */
 .type {
     height: 80px;

@@ -95,7 +95,10 @@ const app = new Vue({
         lastSeen: '',
         lastAccess:'',
         newMessage: '',
-        searchName: ''
+        searchName: '',
+        showOptions: false,
+        showArrow: true,
+        
     
         
     },
@@ -126,39 +129,35 @@ const app = new Vue({
             this.lastSeen = arrayMessages[parseInt(arrayMessages.length - 1)].date;
 
         },
-        getAnswer(){
-            let date = dayjs().date() + '/' + dayjs().month() + '/' + dayjs().year() + ' ' + dayjs().hour() + ':' + dayjs().minute() + ':' + dayjs().second();
-            this.currentChat.messages.push({date: date, message:'ok', status: 'received'});
-        },
-        
+        /* --------SEND MESSAGE-------- */
         addMessage() {
-            let date = dayjs().date() + '/' + dayjs().month() + '/' + dayjs().year() + ' ' + dayjs().hour() + ':' + dayjs().minute() + ':' + dayjs().second();
+            let thisContact = this.currentChat
+            let date = dayjs().format('DD/MM/YYYY hh:mm:ss')
 
             if(this.newMessage != '') {
-                this.currentChat.messages.push({date: date ,message: this.newMessage, status: 'sent'});
+                thisContact.messages.push({
+                    date: date ,
+                    message: this.newMessage, 
+                    status: 'sent'});
                 this.newMessage = ''
             }
 
-            setTimeout(this.getAnswer,1000);  
-            
-            
-        },        
-        scrollToBottom() {
-            this.currentChat.messages.scrollTop = this.currentChat.messages.scrollHeight;
-          }, 
-        getMessages() {
-            // Prior to getting your messages.
-            shouldScroll = this.currentChat.messages.scrollTop + this.currentChat.messages.clientHeight === this.currentChat.messages.scrollHeight;
-          /*
-           * Get your messages, we'll just simulate it by appending a new one syncronously.
-           */
-            this.addMessage();
-          // After getting your messages.
-            if (!shouldScroll) {
-                scrollToBottom();
-            }
+            setTimeout( () => {
+                thisContact.messages.push({
+                    date: date, 
+                    message:'ok', 
+                    status: 'received'});
+                }, 1000);  
+             
         },
-        
+        /*--------------- MILESTONE 5---------------- */
+        hoverMessage(message,index){
+            this.showArrow = !this.showArrow
+        },
+        toggleShowOptions(e,index) {
+            this.showOptions = !this.showOptions
+        },        
+
     },
     mounted() {
         this.currentChat = this.contacts[0];
